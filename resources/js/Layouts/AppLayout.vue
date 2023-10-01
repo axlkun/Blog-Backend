@@ -142,6 +142,10 @@ const logout = () => {
                                             Profile
                                         </DropdownLink>
 
+                                        <DropdownLink :href="route('settings.create')">
+                                            Settings
+                                        </DropdownLink>
+
                                         <DropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
                                             API Tokens
                                         </DropdownLink>
