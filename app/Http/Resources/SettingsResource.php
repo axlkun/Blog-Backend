@@ -14,6 +14,10 @@ class SettingsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'photo_url' => $this->getPhotoUrl(),
+            'description' => $this->getDescription(),
+            'alt_text' => 'current photo'
+        ];
     }
 }

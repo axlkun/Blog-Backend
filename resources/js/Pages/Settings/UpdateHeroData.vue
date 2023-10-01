@@ -10,7 +10,7 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 
 const props = defineProps({
-    settings: Array,
+    settings: Object,
 });
 
 const form = useForm({
@@ -94,7 +94,7 @@ const clearPhotoFileInput = () => {
 
                 <!-- Current Profile Photo -->
                 <div v-show="! photoPreview" class="mt-2">
-                    <img :src="settings.photo_url" alt="current photo" class="rounded-full h-20 w-20 object-cover">
+                    <img :src="settings.data.photo_url" :alt="settings.data.alt_text" class="rounded-full h-20 w-20 object-cover">
                 </div>
 
                 <!-- New Profile Photo Preview -->

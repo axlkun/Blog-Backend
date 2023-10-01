@@ -3,7 +3,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import UpdateHeroData from './UpdateHeroData.vue';
 
 defineProps({
-    settings: Array,
+    settings: Object,
 });
 </script>
 
