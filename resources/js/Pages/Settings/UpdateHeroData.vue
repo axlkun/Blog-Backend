@@ -8,13 +8,14 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import AppTexArea from '@/OwnComponents/TextArea.vue';
 
 const props = defineProps({
     settings: Object,
 });
 
 const form = useForm({
-    name: "",
+    description: "",
     photo: null,
 });
 
@@ -121,18 +122,20 @@ const clearPhotoFileInput = () => {
                 <InputError :message="form.errors.photo" class="mt-2" />
             </div>
 
-            <!-- Name -->
-            <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="name" value="Name" />
-                <TextInput
-                    id="name"
-                    v-model="form.name"
+            <!-- Description -->
+            <div class="col-span-6 sm:col-span-6">
+                <InputLabel for="description" value="Description" />
+
+                <AppTexArea
+                    id="description"
+                    v-model="form.description"
                     type="text"
                     class="mt-1 block w-full"
                     required
-                    autocomplete="name"
-                />
-                <InputError :message="form.errors.name" class="mt-2" />
+                    autocomplete="description"
+                ></AppTexArea>
+                
+                <InputError :message="form.errors.description" class="mt-2" />
             </div>
 
         </template>
