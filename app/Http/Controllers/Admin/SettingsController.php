@@ -36,6 +36,8 @@ class SettingsController extends Controller
 
         if($request->file('photo')){
 
+            $this->settings->deletePhoto();
+
             $imageFullName = $request->file('photo')->getClientOriginalName();
             $imageName = (string) Str::of($imageFullName)
                 ->beforeLast('.')

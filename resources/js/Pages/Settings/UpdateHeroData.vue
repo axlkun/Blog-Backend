@@ -15,7 +15,7 @@ const props = defineProps({
 });
 
 const form = useForm({
-    description: "",
+    description: props.settings.data.description,
     photo: null,
 });
 

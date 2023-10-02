@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Settings extends Model
 {
@@ -17,7 +18,7 @@ class Settings extends Model
     ];
 
     public function uploadFolder():string{
-        return "settings";
+        return "public/settings";
     }
 
     public function getDescription(): ?string{
@@ -25,7 +26,17 @@ class Settings extends Model
     }
 
     public function getPhotoUrl(): ?string{
-        // return Arr::get($this->data,'photo_url');
-        return 'https://ui-avatars.com/api/?name=photo&color=7F9CF5&background=EBF4FF';
+        
+        $imageName = Arr::get($this->data,'photo');
+
+        return $imageName === null ? 'https://ui-avatars.com/api/?name=photo&color=7F9CF5&background=EBF4FF' : Storage::url("{$this->uploadFolder()}/$imageName");
+    }
+
+    public function deletePhoto(): void{
+        $imageName = Arr::get($this->data,'photo');
+
+        if($imageName !== null){
+            Storage::delete("{$this->uploadFolder()}/$imageName");
+        }
     }
 }
