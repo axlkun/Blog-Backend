@@ -16,6 +16,10 @@ class Settings extends Model
         'data' => 'array'
     ];
 
+    public function uploadFolder():string{
+        return "settings";
+    }
+
     public function getDescription(): ?string{
         return Arr::get($this->data,'description');
     }

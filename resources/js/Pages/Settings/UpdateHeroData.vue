@@ -23,12 +23,12 @@ const verificationLinkSent = ref(null);
 const photoPreview = ref(null);
 const photoInput = ref(null);
 
-const updateProfileInformation = () => {
+const updateHeroInformation = () => {
     if (photoInput.value) {
         form.photo = photoInput.value.files[0];
     }
 
-    form.post(route('user-profile-information.update'), {
+    form.post(route('settings.save-hero'), {
         errorBag: 'updateProfileInformation',
         preserveScroll: true,
         onSuccess: () => clearPhotoFileInput(),
@@ -71,7 +71,7 @@ const clearPhotoFileInput = () => {
 </script>
 
 <template>
-    <FormSection @submitted="updateProfileInformation">
+    <FormSection @submitted="updateHeroInformation">
         <template #title>
             Hero Information
         </template>
