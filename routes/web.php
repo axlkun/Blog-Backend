@@ -17,8 +17,11 @@ use App\Http\Controllers\Admin\SettingsController;
 |
 */
 
+
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login')
+    ]);
 });
 
 Route::middleware(['auth', 'verified'])
