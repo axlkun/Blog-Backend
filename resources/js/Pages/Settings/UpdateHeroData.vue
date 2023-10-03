@@ -42,7 +42,7 @@ const updateHeroInformation = () => {
             <!-- Profile Photo -->
             <div v-if="$page.props.jetstream.managesProfilePhotos" class="col-span-6 sm:col-span-4">
                 
-                <AppImage :imageUrl="settings.data.photo_url" :imageAlt="settings.data.alt_text" label="Photo" :error-message="form.errors.photo" v-model="form.photo"></AppImage>
+                <AppImage :imageUrl="settings.data.photo_url" :imageAlt="settings.data.alt_text" label="Photo" :errorMessage="form.errors.photo" v-model="form.photo"></AppImage>
 
             </div> 
 

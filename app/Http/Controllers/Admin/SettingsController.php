@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Inertia\Inertia;
 use App\Models\Settings;
+use App\Actions\UploadFile;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use GuzzleHttp\Psr7\UploadedFile;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SettingsResource;
 
@@ -29,7 +31,7 @@ class SettingsController extends Controller
     public function saveHero(Request $request){
         $request->validate([
             'description' => ['required' => 'string'],
-            'photo' => ['nulleable' => 'image']
+            'photo' => ['nullable', 'image']
         ]);
 
         $data['description'] = $request->get('description');
@@ -38,19 +40,18 @@ class SettingsController extends Controller
 
             $this->settings->deletePhoto();
 
-            $imageFullName = $request->file('photo')->getClientOriginalName();
-            $imageName = (string) Str::of($imageFullName)
-                ->beforeLast('.')
-                ->slug()
-                ->append('.')
-                ->append($request->file('photo')->getClientOriginalExtension());
-            
+            $imageName = (new UploadFile)
+                ->setFile($request->file('photo'))
+                ->setUploadPath($this->settings->uploadFolder())
+                ->execute();
+
             $data['photo'] = $imageName;
 
-            $request->file('photo')->storeAs($this->settings->uploadFolder(),$imageName);
         }
 
-        $this->settings->data = $data;
+        $mergedData = array_merge($this->settings->data,$data);
+
+        $this->settings->data = $mergedData;
         $this->settings->save();
 
         return redirect()->back();
