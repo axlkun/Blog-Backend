@@ -16,6 +16,7 @@ defineEmits(['update:modelValue']);
      id="" 
      cols="30" 
      rows="10" 
+     style="resize: none;"
      :value="modelValue"
      @input="$emit('update:modelValue', $event.target.value)">
     </textarea>
