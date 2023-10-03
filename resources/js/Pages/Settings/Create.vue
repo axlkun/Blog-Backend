@@ -1,6 +1,8 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import UpdateHeroData from './UpdateHeroData.vue';
+import UpdateAboutData from './UpdateAboutData.vue';
+import SectionBorder from '@/Components/SectionBorder.vue';
 
 defineProps({
     settings: Object,
@@ -18,6 +20,11 @@ defineProps({
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <UpdateHeroData :settings="settings"></UpdateHeroData>
+
+                <SectionBorder />
+
+                <UpdateAboutData :settings="settings"></UpdateAboutData>
+
             </div>
         </div>
     </AppLayout>
