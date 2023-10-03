@@ -17,7 +17,11 @@ class SettingsResource extends JsonResource
         return [
             'photo_url' => $this->getPhotoUrl(),
             'description' => $this->getDescription(),
-            'alt_text' => 'current photo'
+
+            'about_photo_url' => $this->getAboutPhotoUrl(),
+            'about_description' => $this->getAboutDescription(),
+
+            'alt_text' => 'current photo',
         ];
     }
 }

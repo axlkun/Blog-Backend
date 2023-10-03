@@ -21,15 +21,31 @@ class Settings extends Model
         return "public/settings";
     }
 
+    // Hero
     public function getDescription(): ?string{
         return Arr::get($this->data,'description');
     }
 
     public function getPhotoUrl(): ?string{
         
-        $imageName = Arr::get($this->data,'photo');
+        return $this->getImageUrl('photo');
 
-        return $imageName === null ? 'https://ui-avatars.com/api/?name=photo&color=7F9CF5&background=EBF4FF' : Storage::url("{$this->uploadFolder()}/$imageName");
+    }
+
+    //About
+    public function getAboutDescription(): ?string{
+        return Arr::get($this->data,'about_description');
+    }
+
+    public function getAboutPhotoUrl(): ?string{
+        
+        return $this->getImageUrl('about_photo');
+    }
+
+    public function getImageUrl(string $column): ?string{
+        $imageName = Arr::get($this->data,$column);
+
+        return $imageName === null ? "https://ui-avatars.com/api/?name={$column}&color=7F9CF5&background=EBF4FF" : Storage::url("{$this->uploadFolder()}/$imageName");
     }
 
     public function deletePhoto(): void{
