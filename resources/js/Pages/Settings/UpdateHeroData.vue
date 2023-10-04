@@ -9,8 +9,17 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import AppTexArea from '@/OwnComponents/TextArea.vue';
 import AppImage from '@/OwnComponents/Image.vue';
 
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 const props = defineProps({
     settings: Object,
+});
+
+// Define the editor and its initial data
+const editor = ref(ClassicEditor);
+const editorData = ref(props.settings.data.description);
+const editorConfig = ref({
+    // The configuration of the editor.
 });
 
 
@@ -50,14 +59,15 @@ const updateHeroInformation = () => {
             <div class="col-span-6 sm:col-span-6">
                 <InputLabel for="description" value="Description" />
 
-                <AppTexArea
+                <ckeditor :editor="editor" v-model="form.description" :config="editorConfig"></ckeditor>
+                <!-- <AppTexArea
                     id="description"
                     v-model="form.description"
                     type="text"
                     class="mt-1 block w-full"
                     required
                     autocomplete="description"
-                ></AppTexArea>
+                ></AppTexArea> -->
                 
                 <InputError :message="form.errors.description" class="mt-2" />
             </div>
