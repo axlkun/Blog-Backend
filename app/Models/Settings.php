@@ -29,7 +29,6 @@ class Settings extends Model
     public function getPhotoUrl(): ?string{
         
         return $this->getImageUrl('photo');
-
     }
 
     //About
@@ -42,10 +41,16 @@ class Settings extends Model
         return $this->getImageUrl('about_photo');
     }
 
+    // utils
     public function getImageUrl(string $column): ?string{
         $imageName = Arr::get($this->data,$column);
 
-        return $imageName === null ? "https://ui-avatars.com/api/?name={$column}&color=7F9CF5&background=EBF4FF" : Storage::url("{$this->uploadFolder()}/$imageName");
+        info($imageName);
+        info(Storage::url("{$this->uploadFolder()}/$imageName"));
+
+        return $imageName === null 
+            ? "https://ui-avatars.com/api/?name={$column}&color=7F9CF5&background=EBF4FF" 
+            : Storage::url("{$this->uploadFolder()}/$imageName");
     }
 
     public function deletePhoto(): void{
