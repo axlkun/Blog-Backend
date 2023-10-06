@@ -15,11 +15,17 @@ class SettingsResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'photo_url' => $this->getPhotoUrl(),
+            'photo_url' => $this->getImageUrl('photo'),
             'description' => $this->getDescription(),
 
-            'about_photo_url' => $this->getAboutPhotoUrl(),
+            'about_photo_url' => $this->getImageUrl('about_photo'),
             'about_description' => $this->getAboutDescription(),
+
+            'contact_photo_url' => $this->getImageUrl('contact_photo'),
+            'email' => $this->getEmail(),
+            'phone' => $this->getPhone(),
+            'address' => $this->getAddress(),
+            'google_map_url' => $this->getGoogleMapUrl(),
 
             'alt_text' => 'current photo',
         ];
