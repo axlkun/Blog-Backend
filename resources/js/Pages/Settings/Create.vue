@@ -2,6 +2,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import UpdateHeroData from './UpdateHeroData.vue';
 import UpdateAboutData from './UpdateAboutData.vue';
+import UpdateContactData from './UpdateContactData.vue';
 import SectionBorder from '@/Components/SectionBorder.vue';
 
 defineProps({
@@ -24,6 +25,10 @@ defineProps({
                 <SectionBorder />
 
                 <UpdateAboutData :settings="settings"></UpdateAboutData>
+
+                <SectionBorder />
+
+                <UpdateContactData :settings="settings"></UpdateContactData>
 
             </div>
         </div>
