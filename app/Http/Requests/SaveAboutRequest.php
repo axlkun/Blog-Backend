@@ -22,7 +22,7 @@ class SaveAboutRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'about_description' => ['required' => 'string'],
+            'about_description' => ['required','string'],
             'about_photo' => ['nullable', 'image']
         ];
     }
