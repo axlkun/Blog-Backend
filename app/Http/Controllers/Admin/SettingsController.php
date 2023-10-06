@@ -11,6 +11,7 @@ use GuzzleHttp\Psr7\UploadedFile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveAboutRequest;
 use App\Http\Resources\SettingsResource;
+use App\Http\Requests\SaveContactRequest;
 
 class SettingsController extends Controller
 {
@@ -39,7 +40,7 @@ class SettingsController extends Controller
 
         if($request->file('photo')){
 
-            $this->settings->deletePhoto();
+            $this->settings->deletePhoto('photo');
 
             $imageName = (new UploadFile)
                 ->setFile($request->file('photo'))
@@ -63,7 +64,7 @@ class SettingsController extends Controller
 
         if($request->file('about_photo')){
 
-            $this->settings->deletePhoto();
+            $this->settings->deletePhoto('about_photo');
 
             $imageName = (new UploadFile)
                 ->setFile($request->file('about_photo'))
@@ -71,6 +72,29 @@ class SettingsController extends Controller
                 ->execute();
 
             $data['about_photo'] = $imageName;
+
+        }
+
+        $this->save($data);
+
+        return redirect()->back();
+
+    }
+
+    public function saveContact(SaveContactRequest $request){
+       
+        $data = $request->only(['email','phone','address','google_map_url']);
+
+        if($request->file('contact_photo')){
+
+            $this->settings->deletePhoto('contact_photo');
+
+            $imageName = (new UploadFile)
+                ->setFile($request->file('contact_photo'))
+                ->setUploadPath($this->settings->uploadFolder())
+                ->execute();
+
+            $data['contact_photo'] = $imageName;
 
         }
 
