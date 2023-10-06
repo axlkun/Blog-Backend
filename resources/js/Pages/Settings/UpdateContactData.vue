@@ -16,9 +16,9 @@ const props = defineProps({
 const form = useForm({
     google_map_url: props.settings.data.google_map_url,
     contact_photo: props.settings.data.contact_photo_url,
-    email: null,
-    phone: null,
-    address: null
+    email: props.settings.data.email,
+    phone: props.settings.data.phone,
+    address: props.settings.data.address
 });
 
 const updateContactInformation = () => {
