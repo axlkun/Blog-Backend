@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import ActionMessage from '@/Components/ActionMessage.vue';
 import FormSection from '@/Components/FormSection.vue';
@@ -7,7 +6,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import AppImage from '@/OwnComponents/Image.vue';
-import AppCkeditor from '@/OwnComponents/Ckeditor.vue';
+import AppTexArea from '@/OwnComponents/TextArea.vue';
 
 const props = defineProps({
     settings: Object,
@@ -49,9 +48,15 @@ const updateHeroInformation = () => {
             <div class="col-span-6 sm:col-span-6">
                 <InputLabel for="description" value="Description" />
 
-                <AppCkeditor v-model="form.description"></AppCkeditor>
-                
-                
+                <AppTexArea
+                    id="description"
+                    v-model="form.description"
+                    type="text"
+                    class="mt-1 block w-full"
+                    required
+                    autocomplete="description"
+                ></AppTexArea>
+
                 <InputError :message="form.errors.description" class="mt-2" />
             </div>
 
