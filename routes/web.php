@@ -2,7 +2,6 @@
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SettingsController;
 
@@ -31,4 +30,5 @@ Route::middleware(['auth', 'verified'])
         Route::get('settings', [SettingsController::class, 'create'])->name('settings.create');
         Route::post('settings/save-hero', [SettingsController::class, 'saveHero'])->name('settings.save-hero');
         Route::post('settings/save-about', [SettingsController::class, 'saveAbout'])->name('settings.save-about');
+        Route::post('settings/save-contact', [SettingsController::class, 'saveContact'])->name('settings.save-contact');
     });
