@@ -26,27 +26,31 @@ class Settings extends Model
         return Arr::get($this->data,'description');
     }
 
-    public function getPhotoUrl(): ?string{
-        
-        return $this->getImageUrl('photo');
-    }
-
     //About
     public function getAboutDescription(): ?string{
         return Arr::get($this->data,'about_description');
     }
 
-    public function getAboutPhotoUrl(): ?string{
-        
-        return $this->getImageUrl('about_photo');
+    // Contact
+    public function getEmail(): ?string{
+        return Arr::get($this->data,'email');
+    }
+
+    public function getPhone(): ?string{
+        return Arr::get($this->data,'phone');
+    }
+
+    public function getAddress(): ?string{
+        return Arr::get($this->data,'address');
+    }
+
+    public function getGoogleMapUrl(): ?string{
+        return Arr::get($this->data,'google_map_url');
     }
 
     // utils
     public function getImageUrl(string $column): ?string{
         $imageName = Arr::get($this->data,$column);
-
-        info($imageName);
-        info(Storage::url("{$this->uploadFolder()}/$imageName"));
 
         return $imageName === null 
             ? "https://ui-avatars.com/api/?name={$column}&color=7F9CF5&background=EBF4FF" 
