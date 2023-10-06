@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoriesController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
@@ -31,4 +32,6 @@ Route::middleware(['auth', 'verified'])
         Route::post('settings/save-hero', [SettingsController::class, 'saveHero'])->name('settings.save-hero');
         Route::post('settings/save-about', [SettingsController::class, 'saveAbout'])->name('settings.save-about');
         Route::post('settings/save-contact', [SettingsController::class, 'saveContact'])->name('settings.save-contact');
+
+        Route::resource('categories',CategoriesController::class);
     });
