@@ -1,5 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
+import EditBtn from '@/OwnComponents/EditBtn.vue';
+import DeleteBtn from '@/OwnComponents/DeleteBtn.vue';
 
 const props = defineProps({
     categories: Object,
@@ -20,9 +22,9 @@ const props = defineProps({
                     <table>
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Slug</th>
-                                <th>Actions</th>
+                                <th class="text-left">Name</th>
+                                <th class="text-left">Slug</th>
+                                <th class="text-left">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,8 +32,11 @@ const props = defineProps({
                                 <td>{{category.name}}</td>
                                 <td>{{category.slug}}</td>
                                 <td>
-                                    Edit
-                                    Delete
+                                    <div class="flex items-center space-x-2">
+                                        <EditBtn :url="route('categories.edit',{category: category.id})"></EditBtn>
+
+                                        <DeleteBtn :url="route('categories.destroy',{category: category.id})"></DeleteBtn>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
