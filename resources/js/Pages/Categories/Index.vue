@@ -35,7 +35,7 @@ const props = defineProps({
                                     <div class="flex items-center space-x-2">
                                         <EditBtn :url="route('categories.edit',{category: category.id})"></EditBtn>
 
-                                        <DeleteBtn :url="route('categories.destroy',{category: category.id})"></DeleteBtn>
+                                        <DeleteBtn :url="route('categories.destroy',{category: category.id})" module-name="category"></DeleteBtn>
                                     </div>
                                 </td>
                             </tr>
