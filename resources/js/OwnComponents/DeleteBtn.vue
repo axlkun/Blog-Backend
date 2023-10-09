@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { useForm,usePage } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 
 import ConfirmationModal from '@/Components/ConfirmationModal.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
@@ -18,7 +18,6 @@ const props = defineProps({
     }
 });
 const form = useForm({});
-const page = usePage();
 const show = ref(false);
 
 const deleteItem = () => {
