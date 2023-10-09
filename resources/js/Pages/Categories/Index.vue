@@ -3,6 +3,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import EditBtn from '@/OwnComponents/EditBtn.vue';
 import DeleteBtn from '@/OwnComponents/DeleteBtn.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import SimplePagination from '@/OwnComponents/SimplePagination.vue';
 
 const props = defineProps({
     categories: Object,
@@ -44,10 +45,11 @@ const props = defineProps({
                     </table>
 
                     <div class="mt-10">
-                        <div class="flex items-center justify-between">
+                        <!-- <div class="flex items-center justify-between">
                             <PrimaryButton :href="categories.links.prev" :disable="!categories.links.prev" :class="{'opacity-25': !categories.links.prev}">Previous</PrimaryButton>
                             <PrimaryButton :href="categories.links.next" :disable="!categories.links.next" :class="{'opacity-25': !categories.links.next}">Next</PrimaryButton>
-                        </div>
+                        </div> -->
+                        <SimplePagination :prevUrl="categories.links.prev" :nextUrl="categories.links.next"></SimplePagination>
                     </div>
                 </div>
             </div>
