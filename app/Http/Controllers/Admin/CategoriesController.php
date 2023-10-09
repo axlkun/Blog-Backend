@@ -15,4 +15,12 @@ class CategoriesController extends Controller
             'categories' => CategoryResource::collection(Category::latest()->simplePaginate(10))
         ]);
     }
+
+    public function destroy(Category $category){
+
+        // $category->delete();
+
+        return redirect()->route('categories.index')
+        ->with('success','Category deleted successfully');
+    }
 }
