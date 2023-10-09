@@ -24,6 +24,7 @@ const show = ref(false);
 const deleteItem = () => {
     
     form.delete(props.url);
+    show.value = false;
 };
 </script>
 
