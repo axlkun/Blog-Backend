@@ -4,6 +4,7 @@ import EditBtn from '@/OwnComponents/EditBtn.vue';
 import DeleteBtn from '@/OwnComponents/DeleteBtn.vue';
 import SimplePagination from '@/OwnComponents/SimplePagination.vue';
 import AppTable from '@/OwnComponents/Table.vue';
+import Container from '@/OwnComponents/Container.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const props = defineProps({
@@ -29,32 +30,32 @@ const headers = [
             </h2>
         </template>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <PrimaryButton :href="route('categories.create')">Add new</PrimaryButton>
+        <Container>
+            <PrimaryButton :href="route('categories.create')">Add new</PrimaryButton>
 
-                <div class="mt-4 p-6 bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <AppTable :headers="headers">
-                        <tr v-for="category in categories.data" :key="category.id">
-                            <td>{{ category.name }}</td>
-                            <td>{{ category.slug }}</td>
-                            <td>
-                                <div class="flex items-center justify-end space-x-2">
-                                    <EditBtn :url="route('categories.edit', { category: category.id })"></EditBtn>
+            <div class="mt-4 p-6 bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <AppTable :headers="headers">
+                    <tr v-for="category in categories.data" :key="category.id">
+                        <td>{{ category.name }}</td>
+                        <td>{{ category.slug }}</td>
+                        <td>
+                            <div class="flex items-center justify-end space-x-2">
+                                <EditBtn :url="route('categories.edit', { category: category.id })"></EditBtn>
 
-                                    <DeleteBtn :url="route('categories.destroy', { category: category.id })"
-                                        module-name="category"></DeleteBtn>
-                                </div>
-                            </td>
-                        </tr>
-                    </AppTable>
+                                <DeleteBtn :url="route('categories.destroy', { category: category.id })"
+                                    module-name="category"></DeleteBtn>
+                            </div>
+                        </td>
+                    </tr>
+                </AppTable>
 
-                    <div class="mt-10">
+                <div class="mt-10">
 
-                        <SimplePagination :prevUrl="categories.links.prev" :nextUrl="categories.links.next">
-                        </SimplePagination>
-                    </div>
+                    <SimplePagination :prevUrl="categories.links.prev" :nextUrl="categories.links.next">
+                    </SimplePagination>
                 </div>
             </div>
-        </div>
-</AppLayout></template>
+        </Container>
+
+    </AppLayout>
+</template>
