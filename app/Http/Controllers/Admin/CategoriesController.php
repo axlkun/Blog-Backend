@@ -16,6 +16,10 @@ class CategoriesController extends Controller
         ]);
     }
 
+    public function create(Request $request){
+        return Inertia::render('Categories/Create');
+    }
+
     public function destroy(Category $category){
 
         $category->delete();
