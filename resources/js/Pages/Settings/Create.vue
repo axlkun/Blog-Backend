@@ -4,18 +4,23 @@ import UpdateHeroData from './UpdateHeroData.vue';
 import UpdateAboutData from './UpdateAboutData.vue';
 import UpdateContactData from './UpdateContactData.vue';
 import SectionBorder from '@/Components/SectionBorder.vue';
+import BreadCroumbs from '@/OwnComponents/BreadCroumbs.vue';
 
 defineProps({
     settings: Object,
 });
+
+const breadcrumbs = [
+    {
+        label: "Settings"
+    }
+];
 </script>
 
 <template>
     <AppLayout title="Settings">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Settings
-            </h2>
+            <BreadCroumbs :items="breadcrumbs"></BreadCroumbs>
         </template>
 
         <div>

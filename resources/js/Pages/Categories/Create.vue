@@ -11,11 +11,22 @@ import ActionMessage from '@/Components/ActionMessage.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Container from '@/OwnComponents/Container.vue';
 import Card from '@/OwnComponents/Card.vue';
+import BreadCroumbs from '@/OwnComponents/BreadCroumbs.vue';
 
 const form = useForm({
     name: "",
     slug: ""
 });
+
+const breadcrumbs = [
+    {
+        label: "Categories",
+        url: route('categories.index')
+    },
+    {
+        label: "Add category"
+    }
+];
 
 watch(
     () => form.name, // use a getter like this
@@ -33,9 +44,7 @@ const saveCategory = () => {
 <template>
     <AppLayout title="Dashboard">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Add new category
-            </h2>
+            <BreadCroumbs :items="breadcrumbs"></BreadCroumbs>
         </template>
 
         <Container>
@@ -67,6 +76,6 @@ const saveCategory = () => {
                 </form>
             </Card>
         </Container>
-            
+
     </AppLayout>
 </template>

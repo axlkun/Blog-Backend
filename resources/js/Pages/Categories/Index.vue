@@ -7,6 +7,7 @@ import AppTable from '@/OwnComponents/Table.vue';
 import Container from '@/OwnComponents/Container.vue';
 import Card from '@/OwnComponents/Card.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import BreadCroumbs from '@/OwnComponents/BreadCroumbs.vue';
 
 const props = defineProps({
     categories: Object,
@@ -21,14 +22,18 @@ const headers = [
     }
 ];
 
+const breadcrumbs = [
+    {
+        label: "Categories"
+    }
+];
+
 </script>
 
 <template>
     <AppLayout title="Dashboard">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Categories
-            </h2>
+            <BreadCroumbs :items="breadcrumbs"></BreadCroumbs>
         </template>
 
         <Container>
