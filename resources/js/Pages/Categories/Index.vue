@@ -16,6 +16,7 @@ const props = defineProps({
 const headers = [
     { name: "Name" },
     { name: "Slug" },
+    { name: "Created date" },
     {
         name: "Actions",
         class: "text-right"
@@ -44,6 +45,7 @@ const breadcrumbs = [
                     <tr v-for="category in categories.data" :key="category.id">
                         <td>{{ category.name }}</td>
                         <td>{{ category.slug }}</td>
+                        <td>{{ category.created_at_formated }}</td>
                         <td>
                             <div class="flex items-center justify-end space-x-2">
                                 <EditBtn :url="route('categories.edit', { category: category.id })"></EditBtn>
