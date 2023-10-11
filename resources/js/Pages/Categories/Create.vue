@@ -1,6 +1,6 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
-import { watch } from 'vue';
+import { watch, defineProps, onMounted  } from 'vue';
 import { strSlug } from "@/helpers.js";
 
 import AppLayout from '@/Layouts/AppLayout.vue';
@@ -13,6 +13,11 @@ import Container from '@/OwnComponents/Container.vue';
 import Card from '@/OwnComponents/Card.vue';
 import BreadCroumbs from '@/OwnComponents/BreadCroumbs.vue';
 
+const props = defineProps({
+    edit: Boolean,
+    category: Object
+});
+
 const form = useForm({
     name: "",
     slug: ""
@@ -24,7 +29,7 @@ const breadcrumbs = [
         url: route('categories.index')
     },
     {
-        label: "Add category"
+        label: `${props.edit ? 'Edit' : 'Add'} Category`
     }
 ];
 
@@ -35,9 +40,18 @@ watch(
     }
 )
 
+onMounted(() => {
+    if (props.edit) {
+        form.name = props.category.data.name
+        form.slug = props.category.data.slug
+    }
+});
+
 const saveCategory = () => {
 
-    form.post(route('categories.store'));
+    props.edit 
+    ? form.put(route('categories.update', {id: props.category.data.id}))
+    : form.post(route('categories.store'));
 };
 </script>
 
@@ -70,7 +84,8 @@ const saveCategory = () => {
                         </ActionMessage>
 
                         <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                            Save
+                            <span v-if="edit">Update</span>
+                            <span v-else>Save</span>
                         </PrimaryButton>
                     </div>
                 </form>
