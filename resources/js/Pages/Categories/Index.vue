@@ -5,6 +5,7 @@ import DeleteBtn from '@/OwnComponents/DeleteBtn.vue';
 import SimplePagination from '@/OwnComponents/SimplePagination.vue';
 import AppTable from '@/OwnComponents/Table.vue';
 import Container from '@/OwnComponents/Container.vue';
+import Card from '@/OwnComponents/Card.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const props = defineProps({
@@ -33,7 +34,7 @@ const headers = [
         <Container>
             <PrimaryButton :href="route('categories.create')">Add new</PrimaryButton>
 
-            <div class="mt-4 p-6 bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <Card class="mt-4">
                 <AppTable :headers="headers">
                     <tr v-for="category in categories.data" :key="category.id">
                         <td>{{ category.name }}</td>
@@ -54,7 +55,7 @@ const headers = [
                     <SimplePagination :prevUrl="categories.links.prev" :nextUrl="categories.links.next">
                     </SimplePagination>
                 </div>
-            </div>
+            </Card>
         </Container>
 
     </AppLayout>
