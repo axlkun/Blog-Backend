@@ -4,6 +4,7 @@ import EditBtn from '@/OwnComponents/EditBtn.vue';
 import DeleteBtn from '@/OwnComponents/DeleteBtn.vue';
 import SimplePagination from '@/OwnComponents/SimplePagination.vue';
 import AppTable from '@/OwnComponents/Table.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const props = defineProps({
     categories: Object,
@@ -30,7 +31,9 @@ const headers = [
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="p-6 bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <PrimaryButton :href="route('categories.create')">Add new</PrimaryButton>
+
+                <div class="mt-4 p-6 bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <AppTable :headers="headers">
                         <tr v-for="category in categories.data" :key="category.id">
                             <td>{{ category.name }}</td>
@@ -45,29 +48,6 @@ const headers = [
                             </td>
                         </tr>
                     </AppTable>
-
-                    <!-- <table>
-                        <thead>
-                            <tr>
-                                <th class="text-left">Name</th>
-                                <th class="text-left">Slug</th>
-                                <th class="text-left">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="category in categories.data" :key="category.id">
-                                <td>{{category.name}}</td>
-                                <td>{{category.slug}}</td>
-                                <td>
-                                    <div class="flex items-center space-x-2">
-                                        <EditBtn :url="route('categories.edit',{category: category.id})"></EditBtn>
-
-                                        <DeleteBtn :url="route('categories.destroy',{category: category.id})" module-name="category"></DeleteBtn>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table> -->
 
                     <div class="mt-10">
 
