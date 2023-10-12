@@ -1,6 +1,6 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
-import { watch, defineProps, onMounted  } from 'vue';
+import { watch, defineProps, onMounted } from 'vue';
 import { strSlug } from "@/helpers.js";
 
 import AppLayout from '@/Layouts/AppLayout.vue';
@@ -12,29 +12,43 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Container from '@/OwnComponents/Container.vue';
 import Card from '@/OwnComponents/Card.vue';
 import BreadCroumbs from '@/OwnComponents/BreadCroumbs.vue';
+import AppImage from '@/OwnComponents/Image.vue';
+import AppCkeditor from '@/OwnComponents/Ckeditor.vue';
 
 const props = defineProps({
     edit: Boolean,
-    category: Object
+    article: Object,
+    categories: {
+      type: Object,
+      default: function () {
+        return {
+          data: [],
+        };
+      },
+    },
 });
 
 const form = useForm({
     title: "",
-    slug: ""
+    slug: "",
+    image: "",
+    description: ""
 });
+
+const imageUrl = "";
 
 const breadcrumbs = [
     {
-        label: "Categories",
-        url: route('categories.index')
+        label: "Articles",
+        url: route('articles.index')
     },
     {
-        label: `${props.edit ? 'Edit' : 'Add'} Category`
+        label: `${props.edit ? 'Edit' : 'Add'} Article`
     }
 ];
 
 watch(
-    () => form.title, // use a getter like this
+    () => form.title,
     (title) => {
         form.slug = strSlug(title);
     }
@@ -42,16 +56,16 @@ watch(
 
 onMounted(() => {
     if (props.edit) {
-        form.title = props.category.data.title
-        form.slug = props.category.data.slug
+        form.title = props.article.data.title
+        form.slug = props.article.data.slug
     }
 });
 
-const saveCategory = () => {
+const saveArticle = () => {
 
-    props.edit 
-    ? form.put(route('categories.update', {id: props.category.data.id}))
-    : form.post(route('categories.store'));
+    props.edit
+        ? form.put(route('articles.update', { id: props.article.data.id }))
+        : form.post(route('articles.store'));
 };
 </script>
 
@@ -63,8 +77,24 @@ const saveCategory = () => {
 
         <Container>
             <Card>
-                <form @submit.prevent="saveCategory">
-                    <div>
+                <form @submit.prevent="saveArticle">
+                    <div class="col-span-6 sm:col-span-4">
+
+                        <AppImage :imageUrl="imageUrl" label="Image" v-model="form.image" :errorMessage="form.errors.image" ></AppImage>
+
+                    </div>
+
+                    <div class="mt-4">
+                        <InputLabel for="category" value="Category" />
+                        <select name="category" id="category" class="block w-full form-input" v-model="form.category_id">
+                            <option value="" disabled selected>Select a category</option>
+                            <option v-for="category in categories.data" :key="category.id" :value="category.id">{{
+                                category.name }}</option>
+                        </select>
+                        <InputError :message="form.errors.category" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4">
                         <InputLabel for="title" value="Title" />
                         <TextInput id="title" v-model="form.title" type="text" class="mt-1 block w-full" required
                             autocomplete="title" />
@@ -76,6 +106,14 @@ const saveCategory = () => {
                         <TextInput id="slug" v-model="form.slug" type="text" class="mt-1 block w-full" required
                             autocomplete="slug" />
                         <InputError :message="form.errors.slug" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4 col-span-6 sm:col-span-6">
+                        <InputLabel for="description" value="Description" />
+        
+                        <AppCkeditor v-model="form.description"></AppCkeditor>
+                        
+                        <InputError :message="form.errors.description" class="mt-2" />
                     </div>
 
                     <div class="mt-4">

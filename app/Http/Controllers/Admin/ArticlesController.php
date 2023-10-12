@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleResource;
+use App\Http\Resources\CategoryResource;
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -13,7 +15,7 @@ class ArticlesController extends Controller
 {
     public function index(Request $request){
         $articles = Article::with(['category:id,name'])->latest()->simplePaginate(10);
-        
+
         return Inertia::render('Articles/Index',[
             'articles' => ArticleResource::collection($articles)
         ]);
@@ -22,7 +24,8 @@ class ArticlesController extends Controller
     public function create(Request $request){
         return Inertia::render('Articles/Create',[
             "edit" => false,
-            "article" => (object)[]
+            "article" => (object)[],
+            "categories" => CategoryResource::collection(Category::select(['id','name'])->get()),
          ]);
     }
 
@@ -53,15 +56,16 @@ class ArticlesController extends Controller
 
         $article->update($data);
 
-        return redirect()->route('article.index')
+        return redirect()->route('articles.index')
         ->with('success','Article updated successfully');
     }
 
     public function destroy(Article $article){
 
+        // $article->deleteImage();
         $article->delete();
 
-        return redirect()->route('article.index')
+        return redirect()->route('articles.index')
         ->with('success','Article deleted successfully');
     }
 }
