@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,8 +18,11 @@ class ArticleResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'slug' => $this->slug,
-            'created_at_formated' => $this->created_at->diffForHumans()
+            'category' => new CategoryResource($this->whenLoaded('category')),
+            'slug' => $this->when($this->slug,$this->slug),
+            'created_at_formated' => $this->when($this->created_at, function(){
+                return $this->created_at->diffForHumans();
+            }) 
            ];
     }
 }

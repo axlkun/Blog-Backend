@@ -12,8 +12,10 @@ use Inertia\Inertia;
 class ArticlesController extends Controller
 {
     public function index(Request $request){
+        $articles = Article::with(['category:id,name'])->latest()->simplePaginate(10);
+        
         return Inertia::render('Articles/Index',[
-            'articles' => ArticleResource::collection(Article::latest()->simplePaginate(10))
+            'articles' => ArticleResource::collection($articles)
         ]);
     }
 

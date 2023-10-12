@@ -17,8 +17,10 @@ class CategoryResource extends JsonResource
        return [
         'id' => $this->id,
         'name' => $this->name,
-        'slug' => $this->slug,
-        'created_at_formated' => $this->created_at->diffForHumans(),
+        'slug' => $this->when($this->slug,$this->slug),
+        'created_at_formated' => $this->when($this->created_at, function(){
+            return $this->created_at->diffForHumans();
+        }) 
        ];
     }
 }
