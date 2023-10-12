@@ -49,15 +49,6 @@ const updateHeroInformation = () => {
             <div class="col-span-6 sm:col-span-6">
                 <InputLabel for="description" value="Description" />
 
-                <!-- <AppTexArea
-                    id="description"
-                    v-model="form.about_description"
-                    type="text"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="description"
-                ></AppTexArea> -->
-
                 <AppCkeditor v-model="form.about_description"></AppCkeditor>
                 
                 <InputError :message="form.errors.about_description" class="mt-2" />
