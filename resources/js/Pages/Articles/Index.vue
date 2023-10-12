@@ -25,7 +25,7 @@ const headers = [
 
 const breadcrumbs = [
     {
-        label: "articles"
+        label: "Articles"
     }
 ];
 
@@ -41,7 +41,7 @@ const breadcrumbs = [
             <PrimaryButton :href="route('articles.create')">Add new</PrimaryButton>
 
             <Card class="mt-4">
-                <AppTable :headers="headers">
+                <AppTable :headers="headers" :items="articles">
                     <tr v-for="article in articles.data" :key="article.id">
                         <td>{{ article.title }}</td>
                         <td>{{ article.category.name }}</td>
@@ -55,15 +55,7 @@ const breadcrumbs = [
                             </div>
                         </td>
                     </tr>
-
-                    <tr v-if="articles.data.length === 0" aria-colspan="headers.length"><div class="p-4">No data available</div></tr>
                 </AppTable>
-
-                <div v-if="articles.data.length > 0"  class="mt-10">
-
-                    <SimplePagination :prevUrl="articles.links.prev" :nextUrl="articles.links.next">
-                    </SimplePagination>
-                </div>
             </Card>
         </Container>
 

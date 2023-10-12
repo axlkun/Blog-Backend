@@ -2,7 +2,6 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import EditBtn from '@/OwnComponents/EditBtn.vue';
 import DeleteBtn from '@/OwnComponents/DeleteBtn.vue';
-import SimplePagination from '@/OwnComponents/SimplePagination.vue';
 import AppTable from '@/OwnComponents/Table.vue';
 import Container from '@/OwnComponents/Container.vue';
 import Card from '@/OwnComponents/Card.vue';
@@ -41,7 +40,7 @@ const breadcrumbs = [
             <PrimaryButton :href="route('categories.create')">Add new</PrimaryButton>
 
             <Card class="mt-4">
-                <AppTable :headers="headers">
+                <AppTable :headers="headers" :items="categories">
                     <tr v-for="category in categories.data" :key="category.id">
                         <td>{{ category.name }}</td>
                         <td>{{ category.slug }}</td>
@@ -55,15 +54,7 @@ const breadcrumbs = [
                             </div>
                         </td>
                     </tr>
-
-                    <tr v-if="categories.data.length === 0" aria-colspan="headers.length"><div class="p-4">No data available</div></tr>
                 </AppTable>
-
-                <div v-if="categories.data.length > 0" class="mt-10">
-
-                    <SimplePagination :prevUrl="categories.links.prev" :nextUrl="categories.links.next">
-                    </SimplePagination>
-                </div>
             </Card>
         </Container>
 
