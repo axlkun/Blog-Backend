@@ -55,9 +55,11 @@ const breadcrumbs = [
                             </div>
                         </td>
                     </tr>
+
+                    <tr v-if="categories.data.length === 0" aria-colspan="headers.length"><div class="p-4">No data available</div></tr>
                 </AppTable>
 
-                <div class="mt-10">
+                <div v-if="categories.data.length > 0" class="mt-10">
 
                     <SimplePagination :prevUrl="categories.links.prev" :nextUrl="categories.links.next">
                     </SimplePagination>
