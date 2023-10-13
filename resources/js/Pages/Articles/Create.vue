@@ -1,6 +1,6 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
-import { watch, defineProps, onMounted } from 'vue';
+import { watch, defineProps, onMounted, ref  } from 'vue';
 import { strSlug } from "@/helpers.js";
 
 import AppLayout from '@/Layouts/AppLayout.vue';
@@ -29,13 +29,16 @@ const props = defineProps({
 });
 
 const form = useForm({
+    "_method": props.edit ? 'PUT' : "",
+    category_id: "",
     title: "",
     slug: "",
-    image: "",
-    description: ""
+    description: props.edit ? props.article.data.description : '',
+    image: ""
 });
 
-const imageUrl = "";
+const resetOnSuccess = false;
+let imageUrl = ref("");
 
 const breadcrumbs = [
     {
@@ -56,9 +59,13 @@ watch(
 
 onMounted(() => {
     if (props.edit) {
-        form.title = props.article.data.title
-        form.slug = props.article.data.slug
+        form.category_id = props.article.data.category_id;
+        form.title = props.article.data.title;
+        form.slug = props.article.data.slug;
     }
+
+    imageUrl.value = props.article.data.imageUrl;
+
 });
 
 const saveArticle = () => {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\UploadFile;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleResource;
 use App\Http\Resources\CategoryResource;
@@ -24,16 +25,23 @@ class ArticlesController extends Controller
     public function create(Request $request){
         return Inertia::render('Articles/Create',[
             "edit" => false,
-            "article" => (object)[],
+            "article" => new ArticleResource(new Article()),
             "categories" => CategoryResource::collection(Category::select(['id','name'])->get()),
          ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request, UploadFile $uploadFile){
         $data = $request->validate([
-            'name' => ['required','string','max:255'],
-            'slug' => ['required','string',Rule::unique(Article::class)]
+            'category_id' => ['required',Rule::exists(Category::class,'id')],
+            'title' => ['required','string','max:255'],
+            'slug' => ['required','string',Rule::unique(Article::class)],
+            'image' => ['required','image','max:3000'],
+            'description' => ['required','string'],
         ]);
+
+        $data['image'] = $uploadFile->setFile($request->file('image'))
+        ->setUploadPath((new Article())->uploadFolder())
+        ->execute();
 
         Article::create($data);
 

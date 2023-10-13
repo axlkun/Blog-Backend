@@ -17,6 +17,7 @@ class ArticleResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'imageUrl' => $this->getImageUrl(),
             'title' => $this->title,
             'category' => new CategoryResource($this->whenLoaded('category')),
             'slug' => $this->when($this->slug,$this->slug),
