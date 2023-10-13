@@ -14,7 +14,7 @@ use Inertia\Inertia;
 
 class ArticlesController extends Controller
 {
-    public function index(Request $request){
+    public function index(){
         $articles = Article::with(['category:id,name'])->latest()->simplePaginate(10);
 
         return Inertia::render('Articles/Index',[
@@ -22,7 +22,7 @@ class ArticlesController extends Controller
         ]);
     }
 
-    public function create(Request $request){
+    public function create(){
         return Inertia::render('Articles/Create',[
             "edit" => false,
             "article" => new ArticleResource(new Article()),
