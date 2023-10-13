@@ -11,13 +11,13 @@ use Inertia\Inertia;
 
 class CategoriesController extends Controller
 {
-    public function index(Request $request){
+    public function index(){
         return Inertia::render('Categories/Index',[
             'categories' => CategoryResource::collection(Category::latest()->simplePaginate(10))
         ]);
     }
 
-    public function create(Request $request){
+    public function create(){
         return Inertia::render('Categories/Create',[
             "edit" => false,
             "category" => (object)[]
