@@ -1,6 +1,6 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
-import { watch, defineProps, onMounted, ref  } from 'vue';
+import { watch, defineProps, onMounted, ref } from 'vue';
 import { strSlug } from "@/helpers.js";
 
 import AppLayout from '@/Layouts/AppLayout.vue';
@@ -19,21 +19,22 @@ const props = defineProps({
     edit: Boolean,
     article: Object,
     categories: {
-      type: Object,
-      default: function () {
-        return {
-          data: [],
-        };
-      },
+        type: Object,
+        default: function () {
+            return {
+                data: [],
+            };
+        },
     },
 });
 
 const form = useForm({
+    "_method": props.edit ? 'PUT' : "",
     category_id: "",
     title: "",
     slug: "",
     description: "",
-    image: ""
+    image: null
 });
 
 let imageUrl = ref("");
@@ -69,16 +70,8 @@ onMounted(() => {
 
 const saveArticle = () => {
 
-    if(props.edit){
-        console.log('Enviando');
-        console.log(form.image);
-        console.log(form.category_id);
-        console.log(form.title);
-        console.log(form.description);
-    }
-
     props.edit
-        ? form.put(route('articles.update', { id: props.article.data.id }))
+        ? form.post(route('articles.update', { id: props.article.data.id }))
         : form.post(route('articles.store'));
 };
 </script>
@@ -91,10 +84,11 @@ const saveArticle = () => {
 
         <Container>
             <Card>
-                <form @submit.prevent="saveArticle">
+                <form @submit.prevent="saveArticle" enctype="multipart/form-data">
                     <div class="col-span-6 sm:col-span-4">
 
-                        <AppImage :imageUrl="imageUrl" label="Image" v-model="form.image" :errorMessage="form.errors.image" ></AppImage>
+                        <AppImage :imageUrl="imageUrl" label="Image" v-model="form.image" :errorMessage="form.errors.image">
+                        </AppImage>
 
                     </div>
 
@@ -124,9 +118,9 @@ const saveArticle = () => {
 
                     <div class="mt-4 col-span-6 sm:col-span-6">
                         <InputLabel for="description" value="Description" />
-        
+
                         <AppCkeditor v-model="form.description"></AppCkeditor>
-                        
+
                         <InputError :message="form.errors.description" class="mt-2" />
                     </div>
 

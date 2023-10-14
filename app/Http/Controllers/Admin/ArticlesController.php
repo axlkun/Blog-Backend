@@ -60,8 +60,6 @@ class ArticlesController extends Controller
 
     public function update(Request $request, Article $article, UploadFile $uploadFile){
 
-        dd($request->all());
-
         $data = $request->validate([
             'category_id' => ['required',Rule::exists(Category::class,'id')],
             'title' => ['required','string','max:255'],
