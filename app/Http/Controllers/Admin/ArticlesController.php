@@ -26,11 +26,12 @@ class ArticlesController extends Controller
         return Inertia::render('Articles/Create',[
             "edit" => false,
             "article" => new ArticleResource(new Article()),
-            "categories" => CategoryResource::collection(Category::select(['id','name'])->get()),
+            "categories" => CategoryResource::collection(Category::select(['id','name'])->get())
          ]);
     }
 
     public function store(Request $request, UploadFile $uploadFile){
+        
         $data = $request->validate([
             'category_id' => ['required',Rule::exists(Category::class,'id')],
             'title' => ['required','string','max:255'],
@@ -50,22 +51,39 @@ class ArticlesController extends Controller
     }
 
     public function edit(Article $article){
-        return Inertia::render('Article/Create',[
+        return Inertia::render('Articles/Create',[
             "edit" => true,
-            "article" => new ArticleResource($article)
+            "article" => new ArticleResource($article),
+            "categories" => CategoryResource::collection(Category::select(['id','name'])->get()),
         ]);
     }
 
-    public function update(Request $request, Article $article){
+    public function update(Request $request, Article $article, UploadFile $uploadFile){
+
+        dd($request->all());
+
         $data = $request->validate([
-            'name' => ['required','string','max:255'],
-            'slug' => ['required','string',Rule::unique(Article::class)->ignore($article->id)]
+            'category_id' => ['required',Rule::exists(Category::class,'id')],
+            'title' => ['required','string','max:255'],
+            'slug' => ['required','string',Rule::unique(Article::class)->ignore($article->id)],
+            'image' => ['nullable','image','max:3000'],
+            'description' => ['required','string']
         ]);
 
-        $article->update($data);
+        $data['image'] = $article->image;
 
+        if($request->file('image')){
+            $article->deletePhoto();
+
+            $data['image'] = $uploadFile->setFile($request->file('image'))
+            ->setUploadPath($article->uploadFolder())
+            ->execute();
+        }
+
+        $article->update($data);
         return redirect()->route('articles.index')
         ->with('success','Article updated successfully');
+
     }
 
     public function destroy(Article $article){

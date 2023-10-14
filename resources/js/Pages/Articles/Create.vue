@@ -29,15 +29,13 @@ const props = defineProps({
 });
 
 const form = useForm({
-    "_method": props.edit ? 'PUT' : "",
     category_id: "",
     title: "",
     slug: "",
-    description: props.edit ? props.article.data.description : '',
+    description: "",
     image: ""
 });
 
-const resetOnSuccess = false;
 let imageUrl = ref("");
 
 const breadcrumbs = [
@@ -62,6 +60,7 @@ onMounted(() => {
         form.category_id = props.article.data.category_id;
         form.title = props.article.data.title;
         form.slug = props.article.data.slug;
+        form.description = props.article.data.description
     }
 
     imageUrl.value = props.article.data.imageUrl;
@@ -69,6 +68,14 @@ onMounted(() => {
 });
 
 const saveArticle = () => {
+
+    if(props.edit){
+        console.log('Enviando');
+        console.log(form.image);
+        console.log(form.category_id);
+        console.log(form.title);
+        console.log(form.description);
+    }
 
     props.edit
         ? form.put(route('articles.update', { id: props.article.data.id }))
