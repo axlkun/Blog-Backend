@@ -2,39 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Arr;
+use App\Contracts\ImageableContract as ContractsImageableContract;
+use App\Traits\Imageable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Article extends Model
+class Article extends Model implements ContractsImageableContract
 {
     use HasFactory;
+    use Imageable; // permite usar los métodos getImageUrl y deletePhoto
 
     protected $guarded = ['id'];
-
-    public function category(): BelongsTo{
-        return $this->belongsTo(Category::class,'category_id')->withDefault();
-    }
 
     public function uploadFolder():string{
         return "public/articles";
     }
 
-    public function getImageUrl(string $column = 'image'): ?string{
-        $imageName = $this->$column;
-
-        return $imageName === null 
-            ? "https://ui-avatars.com/api/?name={$column}&color=7F9CF5&background=EBF4FF" 
-            : Storage::url("{$this->uploadFolder()}/$imageName");
+    public function category(): BelongsTo{
+        return $this->belongsTo(Category::class,'category_id')->withDefault();
     }
 
-    public function deletePhoto(string $column = 'image'): void{
-        $imageName = $this->$column;
-
-        if($imageName !== null){
-            Storage::delete("{$this->uploadFolder()}/$imageName");
-        }
-    }
 }
