@@ -40,7 +40,7 @@ class SettingsController extends Controller
 
         if($request->file('photo')){
 
-            $this->settings->deletePhoto('photo');
+            $this->settings->deletePhoto('data->photo');
 
             $imageName = (new UploadFile)
                 ->setFile($request->file('photo'))
@@ -64,7 +64,7 @@ class SettingsController extends Controller
 
         if($request->file('about_photo')){
 
-            $this->settings->deletePhoto('about_photo');
+            $this->settings->deletePhoto('data->about_photo');
 
             $imageName = (new UploadFile)
                 ->setFile($request->file('about_photo'))
@@ -87,7 +87,7 @@ class SettingsController extends Controller
 
         if($request->file('contact_photo')){
 
-            $this->settings->deletePhoto('contact_photo');
+            $this->settings->deletePhoto('data->contact_photo');
 
             $imageName = (new UploadFile)
                 ->setFile($request->file('contact_photo'))
