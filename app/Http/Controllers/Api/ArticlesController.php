@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ArticlesController extends Controller
 {
     public function index(Request $request){
-        $articles = Article::with(['category:id,name'])->latest()->limit($request->get('limit',6))->get();
+        $articles = Article::with(['category:id,name'])->latest()->simplePaginate($request->get('limit',6));
 
         return ArticleResource::collection($articles);
     }
