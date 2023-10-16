@@ -14,4 +14,9 @@ class ArticlesController extends Controller
 
         return ArticleResource::collection($articles);
     }
+
+    public function show(Request $request, Article $article){
+        $article->load(['category:id,name']);
+        return new ArticleResource($article);
+    }
 }
