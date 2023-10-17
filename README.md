@@ -52,7 +52,7 @@ Fullstack Application developed with Vue - Laravel and Inertiajs - Jetstream whe
 ```
 ## Documentation
 
-[Documentation](https://documenter.getpostman.com/view/25443512/2s9Xy3sqzU)
+[Documentation](https://documenter.getpostman.com/view/25443512/2s9YR83D5T)
 
 ## License
 
