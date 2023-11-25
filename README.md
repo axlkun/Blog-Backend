@@ -9,7 +9,7 @@
 
 # Blog Backend
 
-Fullstack Application developed with Vue - Laravel and Inertiajs - Jetstream where you can manage your frontend sections: hero, about us and contact, updating description and images. And you can create articles for your blog. All this data exposed to an API to consume it from the frontend
+Fullstack Application developed with Vue - Inertiajs and Laravel - Jetstream where you can manage your frontend sections: hero, about us and contact, updating description and images. And you can create articles for your blog. All this data exposed to an API to consume it from the frontend
 
 
 ## Installation
